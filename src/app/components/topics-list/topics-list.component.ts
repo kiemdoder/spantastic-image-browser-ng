@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {Topic} from "../../models/topic";
 import {UnsplashApiService} from "../../services/unsplash/unsplash-api.service";
 
@@ -7,11 +7,13 @@ import {UnsplashApiService} from "../../services/unsplash/unsplash-api.service";
   templateUrl: './topics-list.component.html',
   styleUrls: ['./topics-list.component.scss']
 })
-export class TopicsListComponent implements OnInit {
+export class TopicsListComponent {
 
   loading = true;
   topics: Topic[] = [];
   selectedTopicId = '';
+
+  @Output() select = new EventEmitter<Topic>();
 
   constructor(private unsplashApiService: UnsplashApiService) {
     unsplashApiService.loadTopics().subscribe(topics => {
@@ -23,7 +25,8 @@ export class TopicsListComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  topicClicked(topic: Topic) {
+    this.selectedTopicId = topic.id;
+    this.select.emit(topic);
   }
-
 }

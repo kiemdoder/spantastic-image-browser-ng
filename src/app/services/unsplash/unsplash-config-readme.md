@@ -5,4 +5,4 @@ export const UnsplashConfig = {
 }
 ```
 
-This file should not be added to the git repository. The file is listed in `.gitignore`.
+This file **should not be added** to the git repository and is therefore listed in `.gitignore`.

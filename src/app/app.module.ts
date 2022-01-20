@@ -14,6 +14,7 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {PictureFrameComponent} from './components/picture-frame/picture-frame.component';
 import {PictureScrollerComponent} from './components/picture-scroller/picture-scroller.component';
 import {ScrollingModule} from "@angular/cdk/scrolling";
+import {CarouselModule} from "primeng/carousel";
 
 const matImports = [
   MatToolbarModule,
@@ -23,6 +24,10 @@ const matImports = [
   MatSidenavModule,
   ScrollingModule
 ];
+
+const primeNgImports = [
+  CarouselModule
+]
 
 @NgModule({
   declarations: [
@@ -36,7 +41,8 @@ const matImports = [
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ...matImports
+    ...matImports,
+    ...primeNgImports
   ],
   providers: [],
   bootstrap: [AppComponent]

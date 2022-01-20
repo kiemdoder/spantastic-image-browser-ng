@@ -8,7 +8,8 @@ import {Picture} from "../../models/picture";
 })
 export class PictureFrameComponent {
 
-  @Input() picture!: Picture;
+  @Input() picture1!: Picture;
+  @Input() picture2!: Picture;
 
   constructor() { }
 

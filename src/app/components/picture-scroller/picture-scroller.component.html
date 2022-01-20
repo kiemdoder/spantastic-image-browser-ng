@@ -1,3 +1,5 @@
-<cdk-virtual-scroll-viewport orientation="horizontal" itemSize="30" class="viewport">
-  <app-picture-frame *cdkVirtualFor="let picture of pictures" [picture]="picture"></app-picture-frame>
-</cdk-virtual-scroll-viewport>
+<p-carousel [value]="groupedPictures" [showIndicators]="false" [showNavigators]="true" [numVisible]="3" class="viewport">
+  <ng-template let-picture pTemplate="item">
+    <app-picture-frame [picture1]="picture.picture1" [picture2]="picture.picture2"></app-picture-frame>
+  </ng-template>
+</p-carousel>

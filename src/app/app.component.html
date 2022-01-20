@@ -8,10 +8,10 @@
 
   <mat-drawer-container class="app-container" autosize>
     <mat-drawer class="app-sidenav" mode="side" [opened]="true">
-      <app-topics-list class="app-side-nav"></app-topics-list>
+      <app-topics-list class="app-side-nav" (select)="topicSelected($event)"></app-topics-list>
     </mat-drawer>
 
-    <app-picture-scroller class="app-sidenav-content"></app-picture-scroller>
+    <app-picture-scroller [pictures]="pictures$ | async" class="app-sidenav-content"></app-picture-scroller>
 
   </mat-drawer-container>
 
