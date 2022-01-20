@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
+import {MatDrawer, MatSidenav} from "@angular/material/sidenav";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ng-unsplash-browser';
+  title = 'Spantastic unsplash browser';
+  picturesMaximized = false;
+
+  @ViewChild(MatDrawer) drawer!: MatSidenav;
+
+  toggleSideNav() {
+    this.drawer.toggle();
+  }
 }
