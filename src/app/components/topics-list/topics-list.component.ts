@@ -1,11 +1,13 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular/core';
 import {Topic} from "../../models/topic";
-import {UnsplashApiService} from "../../services/unsplash/unsplash-api.service";
+import {UnsplashService} from "../../services/unsplash/unsplash.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-topics-list',
   templateUrl: './topics-list.component.html',
-  styleUrls: ['./topics-list.component.scss']
+  styleUrls: ['./topics-list.component.scss'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TopicsListComponent {
 
@@ -15,14 +17,16 @@ export class TopicsListComponent {
 
   @Output() select = new EventEmitter<Topic>();
 
-  constructor(private unsplashApiService: UnsplashApiService) {
-    unsplashApiService.loadTopics().subscribe(topics => {
-      this.topics = topics;
-      if (topics.length > 0) {
-        this.selectedTopicId = topics[0].id;
-      }
-      this.loading = false;
-    });
+  private subscription = new Subscription();
+
+  constructor(private unsplashService: UnsplashService) {
+    this.subscription.add(unsplashService.topics$.subscribe(topics => {
+        this.topics = topics;
+        if (topics.length > 0) {
+          this.selectedTopicId = topics[0].id;
+        }
+        this.loading = false;
+    }));
   }
 
   topicClicked(topic: Topic) {

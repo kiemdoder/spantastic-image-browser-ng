@@ -1,10 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {Picture} from "../../models/picture";
 
 @Component({
   selector: 'app-picture-frame',
   templateUrl: './picture-frame.component.html',
-  styleUrls: ['./picture-frame.component.scss']
+  styleUrls: ['./picture-frame.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PictureFrameComponent {
 

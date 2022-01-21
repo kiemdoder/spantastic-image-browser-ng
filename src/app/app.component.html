@@ -7,11 +7,11 @@
   </div>
 
   <mat-drawer-container class="app-container" autosize>
-    <mat-drawer class="app-sidenav" mode="side" [opened]="true">
+    <mat-drawer #drawer class="app-sidenav" mode="side" [opened]="true">
       <app-topics-list class="app-side-nav" (select)="topicSelected($event)"></app-topics-list>
     </mat-drawer>
 
-    <app-picture-scroller [pictures]="pictures$ | async" class="app-sidenav-content"></app-picture-scroller>
+    <app-picture-scroller [showNavButtons]="!drawer.opened" class="app-sidenav-content"></app-picture-scroller>
 
   </mat-drawer-container>
 

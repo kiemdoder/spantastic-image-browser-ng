@@ -15,6 +15,7 @@ import {PictureFrameComponent} from './components/picture-frame/picture-frame.co
 import {PictureScrollerComponent} from './components/picture-scroller/picture-scroller.component';
 import {ScrollingModule} from "@angular/cdk/scrolling";
 import {CarouselModule} from "primeng/carousel";
+import {ImageModule} from "primeng/image";
 
 const matImports = [
   MatToolbarModule,
@@ -26,7 +27,8 @@ const matImports = [
 ];
 
 const primeNgImports = [
-  CarouselModule
+  CarouselModule,
+  ImageModule
 ]
 
 @NgModule({

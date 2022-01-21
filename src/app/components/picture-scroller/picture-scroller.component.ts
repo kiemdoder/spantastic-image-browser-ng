@@ -1,5 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {AfterViewChecked, ChangeDetectionStrategy, Component, Input, OnDestroy, ViewChild} from '@angular/core';
 import {Picture} from "../../models/picture";
+import {Carousel} from "primeng/carousel";
+import {BehaviorSubject, Observable, Subject, Subscription} from "rxjs";
+import {UnsplashService} from "../../services/unsplash/unsplash.service";
 
 interface PicturePair {
   picture1: Picture;
@@ -18,7 +21,7 @@ function partition(pics: Picture[]): PicturePair[] {
       }
 
       if (!first.done && !second.done) {
-        yield {picture1: first.value, picture2: first.value};
+        yield {picture1: first.value, picture2: second.value};
       }
 
       if (first.done || second.done) {
@@ -34,12 +37,32 @@ function partition(pics: Picture[]): PicturePair[] {
 @Component({
   selector: 'app-picture-scroller',
   templateUrl: './picture-scroller.component.html',
-  styleUrls: ['./picture-scroller.component.scss']
+  styleUrls: ['./picture-scroller.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PictureScrollerComponent {
+export class PictureScrollerComponent implements OnDestroy, AfterViewChecked {
 
   groupedPictures!: PicturePair[];
-  @Input() set pictures(pics:  Picture[]){
-    this.groupedPictures = partition(pics);
+
+  @Input() showNavButtons = false;
+
+  @ViewChild(Carousel) carousel!: Carousel;
+
+  private subscription!: Subscription;
+
+  constructor(public unsplashService: UnsplashService) {}
+
+  ngAfterViewChecked(): void {
+    if (!this.subscription) {
+      this.subscription = this.unsplashService.pictures$.subscribe(pictures => {
+        this.groupedPictures = partition(pictures);
+        console.log('set carousel page', 1);
+        this.carousel.page = 1;
+      })
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }
