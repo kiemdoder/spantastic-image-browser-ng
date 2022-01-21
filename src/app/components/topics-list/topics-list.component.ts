@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {Topic} from "../../models/topic";
 import {UnsplashService} from "../../services/unsplash/unsplash.service";
 import {Subscription} from "rxjs";
@@ -6,8 +6,7 @@ import {Subscription} from "rxjs";
 @Component({
   selector: 'app-topics-list',
   templateUrl: './topics-list.component.html',
-  styleUrls: ['./topics-list.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./topics-list.component.scss']
 })
 export class TopicsListComponent {
 

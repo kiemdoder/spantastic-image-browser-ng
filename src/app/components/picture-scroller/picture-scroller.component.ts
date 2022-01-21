@@ -1,7 +1,7 @@
-import {AfterViewChecked, ChangeDetectionStrategy, Component, Input, OnDestroy, ViewChild} from '@angular/core';
+import {AfterViewChecked, Component, Input, OnDestroy, ViewChild} from '@angular/core';
 import {Picture} from "../../models/picture";
 import {Carousel} from "primeng/carousel";
-import {BehaviorSubject, Observable, Subject, Subscription} from "rxjs";
+import {Subscription} from "rxjs";
 import {UnsplashService} from "../../services/unsplash/unsplash.service";
 
 interface PicturePair {
@@ -10,7 +10,6 @@ interface PicturePair {
 }
 
 function partition(pics: Picture[]): PicturePair[] {
-
   function* part(itr: Iterator<Picture>) {
     while (true) {
       const first = itr.next();
@@ -37,8 +36,7 @@ function partition(pics: Picture[]): PicturePair[] {
 @Component({
   selector: 'app-picture-scroller',
   templateUrl: './picture-scroller.component.html',
-  styleUrls: ['./picture-scroller.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./picture-scroller.component.scss']
 })
 export class PictureScrollerComponent implements OnDestroy, AfterViewChecked {
 
@@ -56,7 +54,8 @@ export class PictureScrollerComponent implements OnDestroy, AfterViewChecked {
     if (!this.subscription) {
       this.subscription = this.unsplashService.pictures$.subscribe(pictures => {
         this.groupedPictures = partition(pictures);
-        console.log('set carousel page', 1);
+
+        // Reset carousel after new pictures were loaded.
         this.carousel.page = 1;
       })
     }
