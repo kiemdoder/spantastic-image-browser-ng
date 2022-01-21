@@ -18,7 +18,10 @@ export class UnsplashApiService {
   loadTopics(): Observable<Topic[]> {
     return this.httpClient.get<any[]>(
       unsplashHost + '/topics',
-      {headers: {Authorization: `Client-ID ${UnsplashConfig.accessKey}`}}
+      {
+        params: {'per_page': 100},
+        headers: {Authorization: `Client-ID ${UnsplashConfig.accessKey}`}
+      }
     ).pipe(
       map(topics => topics.map(topic => ({
         id: topic.id,
@@ -28,11 +31,14 @@ export class UnsplashApiService {
     )
   }
 
-  loadPictures(topicId: string): Observable<Picture[]> {
+  loadPictures(topicId: string, page: number): Observable<Picture[]> {
     return this.httpClient.get<any[]>(
       `${unsplashHost}/topics/${topicId}/photos`,
       {
-        params: {'per_page': '30'},
+        params: {
+          'per_page': '30',
+          page
+        },
         headers: {Authorization: `Client-ID ${UnsplashConfig.accessKey}`}
       }
     ).pipe(

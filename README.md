@@ -1,7 +1,7 @@
 # NgUnsplashBrowser
 
-NgUnsplashBrowser is a simple Angular web application to demonstrate the use of the [unsplash]
-(https://unsplash.com) API.
+NgUnsplashBrowser is a simple Angular web application to demonstrate the use of the 
+[unsplash](https://unsplash.com) API.
 
 ## Getting started
 

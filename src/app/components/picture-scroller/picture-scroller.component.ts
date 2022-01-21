@@ -4,12 +4,12 @@ import {Carousel} from "primeng/carousel";
 import {Subscription} from "rxjs";
 import {UnsplashService} from "../../services/unsplash/unsplash.service";
 
-interface PicturePair {
+export interface PicturePair {
   picture1: Picture;
   picture2?: Picture;
 }
 
-function partition(pics: Picture[]): PicturePair[] {
+export function partitionPictures(pics: Picture[]): PicturePair[] {
   function* part(itr: Iterator<Picture>) {
     while (true) {
       const first = itr.next();
@@ -53,15 +53,26 @@ export class PictureScrollerComponent implements OnDestroy, AfterViewChecked {
   ngAfterViewChecked(): void {
     if (!this.subscription) {
       this.subscription = this.unsplashService.pictures$.subscribe(pictures => {
-        this.groupedPictures = partition(pictures);
+        setTimeout(() => {
+          this.groupedPictures = partitionPictures(pictures.pictures);
 
-        // Reset carousel after new pictures were loaded.
-        this.carousel.page = 1;
+          if (pictures.firstPage) { // Reset carousel after new pictures were loaded.
+            this.carousel.page = 0;
+          }
+        });
       })
     }
   }
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+  }
+
+  onPage(page: { page: number }) {
+    const p = page.page;
+    if (p > 0 && ((p + 3) % 15 === 0)) {
+      console.log('load more pictures');
+      this.unsplashService.loadPicturesNextPage();
+    }
   }
 }

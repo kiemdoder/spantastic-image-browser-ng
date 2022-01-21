@@ -1,4 +1,11 @@
-<p-carousel [value]="groupedPictures" [showIndicators]="false" [showNavigators]="showNavButtons" [numVisible]="3" class="viewport">
+<p-carousel
+  [value]="groupedPictures"
+  [showIndicators]="false"
+  [showNavigators]="showNavButtons"
+  [numVisible]="3"
+  (onPage)="onPage($event)"
+  class="viewport"
+>
   <ng-template let-picture pTemplate="item">
     <app-picture-frame [picture1]="picture.picture1" [picture2]="picture.picture2"></app-picture-frame>
   </ng-template>

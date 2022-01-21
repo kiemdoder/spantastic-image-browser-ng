@@ -23,6 +23,6 @@ export class AppComponent {
   }
 
   topicSelected(topic: Topic) {
-    this.unsplashService.loadPictures(topic);
+    this.unsplashService.loadPicturesFirstPage(topic);
   }
 }
