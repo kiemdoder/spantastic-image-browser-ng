@@ -1,7 +1,7 @@
 <div class="img">
-  <img [src]="picture1.urlSmall">
+  <img [src]="picture1?.urlSmall">
 </div>
 <div class="spacer"></div>
-<div class="img">
-  <img [src]="picture2.urlSmall">
+<div class="img" *ngIf="picture2">
+  <img [src]="picture2?.urlSmall">
 </div>
